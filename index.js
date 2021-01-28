@@ -118,30 +118,31 @@ const promptEngineerInfo = () => {
             nextOption()
         })
 };
-//     // intern prompts
-//     .prompt([
-//         {
-//             type: "input",
-//             message: "What is the Intern's name?",
-//             name: "managerName",
-//         },
-//         {
-//             type: "input",
-//             message: "What is the Intern's employee ID?",
-//             name: "managerID"
-//         },
-//         {
-//             type: "input",
-//             message: "What is the Intern's email?",
-//             name: "managerEmail"
-//         },
-//         {
-//             type: "input",
-//             message: "What school does the Intern attend?",
-//             name: "internSchool"
-//         },
-//     ])
-
+const promptInternInfo = () => {
+    inquirer  
+        .prompt([
+            {
+                type: "input",
+                message: "What is the Intern's name?",
+                name: "managerName",
+            },
+            {
+                type: "input",
+                message: "What is the Intern's employee ID?",
+                name: "managerID"
+            },
+            {
+                type: "input",
+                message: "What is the Intern's email?",
+                name: "managerEmail"
+            },
+            {
+                type: "input",
+                message: "What school does the Intern attend?",
+                name: "internSchool"
+            },
+        ])
+}
 
 //     .then((managerData) => {
 //         console.log(managerData);
