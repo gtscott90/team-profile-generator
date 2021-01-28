@@ -21,6 +21,14 @@ function EngineerClass (engineerData) {
     this.engineerID = engineerID
     this.engineerEmail = engineerEmail
     this.engineerGitHub = engineerGitHub
+}
+
+function InternClass (internData) {
+    const { internName, internID, internEmail, internSchool } = internData;
+    this.internName = internName
+    this.internID = internID
+    this.internEmail = internEmail
+    this.internSchool = internSchool
 
 }
 const promptManagerInfo = () => {
@@ -48,7 +56,6 @@ const promptManagerInfo = () => {
             },
         ])
         .then((managerData) => {
-            // console.log(managerData);
             // tell the computer what to do with manager data --> use a mangaer class to make new manager object that is equal to mangagerInfo varibale 
             managerInfo = new ManagerClass(managerData)
             console.log(managerInfo.getManagerName())
@@ -111,7 +118,6 @@ const promptEngineerInfo = () => {
             console.log(engineerData);
             // tell the computer what to do with engineer data --> use a enginner class to make new enginner object and pushto 
             engineerInfo = new EngineerClass(engineerData)
-            // TO DO .push enginneerInfo to engineerArray
             engineerArray.push(engineerInfo)
             console.log(engineerInfo.engineerName)
             console.log(engineerArray)
@@ -124,17 +130,17 @@ const promptInternInfo = () => {
             {
                 type: "input",
                 message: "What is the Intern's name?",
-                name: "managerName",
+                name: "internName",
             },
             {
                 type: "input",
                 message: "What is the Intern's employee ID?",
-                name: "managerID"
+                name: "internID"
             },
             {
                 type: "input",
                 message: "What is the Intern's email?",
-                name: "managerEmail"
+                name: "internEmail"
             },
             {
                 type: "input",
@@ -142,7 +148,16 @@ const promptInternInfo = () => {
                 name: "internSchool"
             },
         ])
-}
+        .then((internData) => {
+            console.log(internData);
+            // tell the computer what to do with engineer data --> use a enginner class to make new enginner object and pushto 
+            internInfo = new InternClass(internData)
+            internArray.push(internInfo)
+            console.log(internInfo.internName)
+            console.log(internArray)
+            nextOption()
+        })
+};
 
 //     .then((managerData) => {
 //         console.log(managerData);
