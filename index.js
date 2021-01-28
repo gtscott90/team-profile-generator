@@ -1,5 +1,7 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+
+// storage variables for team data
 let managerInfo = null
 const engineerArray = []
 const internArray = []
@@ -10,52 +12,55 @@ function ManagerClass (managerData) {
     this.managerID = managerID
     this.managerEmail = managerEmail
     this.managerPhone = managerPhone
-    this.getManagerName = () => this.managerName
+    this.getManagerName = () => this.managerName // TO DO maybe include more of these? not necessary but idk if they're needed for the requirements 
 }
 
-function EngineerClass (engineerdata) {
+function EngineerClass (engineerData) {
+    const { engineerName, engineerID, engineerEmail, engineerGitHub } = engineerData;
+    this.engineerName = engineerName
+    this.engineerID = engineerID
+    this.engineerEmail = engineerEmail
+    this.engineerGitHub = engineerGitHub
 
 }
 const promptManagerInfo = () => {
     inquirer
-    // manager prompts 
-    .prompt([
-        {
-            type: "input",
-            message: "What is the manager's name?",
-            name: "managerName",
-        },
-        {
-            type: "input",
-            message: "What is the manager's employee ID?",
-            name: "managerID",
-        },
-        {
-            type: "input",
-            message: "What is the manager's email?",
-            name: "managerEmail",
-        },
-        {
-            type: "input",
-            message: "What is the manager's office phone number?",
-            name: "managerPhone",
-        },
-    ])
-    .then((managerData) => {
-        // console.log(managerData);
-        // tell the computer what to do with manager data --> use a mangaer class to make new manager object that is equal to mangagerInfo varibale 
-        managerInfo = new ManagerClass(managerData)
-        console.log(managerInfo.getManagerName())
-        console.log(managerInfo.managerName)
-        nextOption()
-    })
+        .prompt([
+            {
+                type: "input",
+                message: "What is the manager's name?",
+                name: "managerName",
+            },
+            {
+                type: "input",
+                message: "What is the manager's employee ID?",
+                name: "managerID",
+            },
+            {
+                type: "input",
+                message: "What is the manager's email?",
+                name: "managerEmail",
+            },
+            {
+                type: "input",
+                message: "What is the manager's office phone number?",
+                name: "managerPhone",
+            },
+        ])
+        .then((managerData) => {
+            // console.log(managerData);
+            // tell the computer what to do with manager data --> use a mangaer class to make new manager object that is equal to mangagerInfo varibale 
+            managerInfo = new ManagerClass(managerData)
+            console.log(managerInfo.getManagerName())
+            console.log(managerInfo.managerName)
+            nextOption()
+        })
        
 }
 promptManagerInfo()
 
 const nextOption = () => {
     inquirer
-    // next prompts
     .prompt([
     {
         type: "list",
@@ -65,7 +70,8 @@ const nextOption = () => {
     }])
     .then((nextOptionData) => {
         console.log(nextOptionData);
-        switch (nextOptionData) {
+        const { nextOption } = nextOptionData;
+        switch (nextOption) {
             case "Add Engineer":
                 promptEngineerInfo()
                 break;
@@ -104,10 +110,12 @@ const promptEngineerInfo = () => {
         .then((engineerData) => {
             console.log(engineerData);
             // tell the computer what to do with engineer data --> use a enginner class to make new enginner object and pushto 
-            engineerInfo = new engineerClass(engineerData)
-            
+            engineerInfo = new EngineerClass(engineerData)
+            // TO DO .push enginneerInfo to engineerArray
+            engineerArray.push(engineerInfo)
             console.log(engineerInfo.engineerName)
-            // nextOption()
+            console.log(engineerArray)
+            nextOption()
         })
 };
 //     // intern prompts
