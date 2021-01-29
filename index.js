@@ -55,7 +55,6 @@ const nextOption = () => {
         name: "nextOption"
     }])
     .then((nextOptionData) => {
-        console.log(nextOptionData);
         const { nextOption } = nextOptionData;
         switch (nextOption) {
             case "Add Engineer":
@@ -65,7 +64,7 @@ const nextOption = () => {
                 promptInternInfo()
                 break;
             default:
-                fs.writeFile("./dist/team.html", generateHTML(team), "UTF-8")
+                fs.writeFileSync("./dist/team.html", generateHTML(team), "UTF-8")
         }
     })
 }; 
