@@ -2,40 +2,15 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const generateHTML = require("./src/page-template.js");
 
-const manager = require("./lib/manager")
-const engineer = require("./lib/engineer")
-const intern = require("./lib/intern")
+const ManagerClass = require("./lib/manager");
+const EngineerClass = require("./lib/engineer");
+const InternClass = require("./lib/intern");
 
 // storage variables for team data
-let managerInfo = null
-const engineerArray = []
-const internArray = []
 
-function ManagerClass (managerData) {
-    const { managerName, managerID, managerEmail, managerPhone } = managerData;
-    this.managerName = managerName
-    this.managerID = managerID
-    this.managerEmail = managerEmail
-    this.managerPhone = managerPhone
-    this.getManagerName = () => this.managerName // TO DO maybe include more of these? not necessary but idk if they're needed for the requirements 
-}
+const team = []
 
-function EngineerClass (engineerData) {
-    const { engineerName, engineerID, engineerEmail, engineerGitHub } = engineerData;
-    this.engineerName = engineerName
-    this.engineerID = engineerID
-    this.engineerEmail = engineerEmail
-    this.engineerGitHub = engineerGitHub
-}
 
-function InternClass (internData) {
-    const { internName, internID, internEmail, internSchool } = internData;
-    this.internName = internName
-    this.internID = internID
-    this.internEmail = internEmail
-    this.internSchool = internSchool
-
-}
 const promptManagerInfo = () => {
     inquirer
         .prompt([
@@ -62,9 +37,8 @@ const promptManagerInfo = () => {
         ])
         .then((managerData) => {
             // tell the computer what to do with manager data --> use a mangaer class to make new manager object that is equal to mangagerInfo varibale 
-            managerInfo = new ManagerClass(managerData)
-            console.log(managerInfo.getManagerName())
-            console.log(managerInfo.managerName)
+            const managerInfo = new ManagerClass(managerData)
+            team.push(managerInfo)
             nextOption()
         })
        
@@ -91,7 +65,7 @@ const nextOption = () => {
                 promptInternInfo()
                 break;
             default:
-                // TO DO: add generagte HTML function here
+                fs.writeFile("./dist/team.html", generateHTML(team), "UTF-8")
         }
     })
 }; 
@@ -123,9 +97,9 @@ const promptEngineerInfo = () => {
             console.log(engineerData);
             // tell the computer what to do with engineer data --> use a enginner class to make new enginner object and pushto 
             engineerInfo = new EngineerClass(engineerData)
-            engineerArray.push(engineerInfo)
+            team.push(engineerInfo)
             console.log(engineerInfo.engineerName)
-            console.log(engineerArray)
+            console.log(team)
             nextOption()
         })
 };
@@ -157,9 +131,9 @@ const promptInternInfo = () => {
             console.log(internData);
             // tell the computer what to do with engineer data --> use a enginner class to make new enginner object and pushto 
             internInfo = new InternClass(internData)
-            internArray.push(internInfo)
+            team.push(internInfo)
             // console.log(internInfo.internName)
-            console.log(internArray)
+            console.log(team)
             nextOption()
         })
 };
