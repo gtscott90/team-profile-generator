@@ -2,6 +2,10 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const generateHTML = require("./src/page-template.js");
 
+const manager = require("./lib/manager")
+const engineer = require("./lib/engineer")
+const intern = require("./lib/intern")
+
 // storage variables for team data
 let managerInfo = null
 const engineerArray = []
