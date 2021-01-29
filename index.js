@@ -2,11 +2,10 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const generateHTML = require("./src/page-template.js");
 
-const ManagerClass = require("./lib/manager");
-const EngineerClass = require("./lib/engineer");
-const InternClass = require("./lib/intern");
-
-// storage variables for team data
+const Employee = require("./lib/employee");
+const Manager = require("./lib/manager");
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
 
 const team = []
 
@@ -17,28 +16,29 @@ const promptManagerInfo = () => {
             {
                 type: "input",
                 message: "What is the manager's name?",
-                name: "managerName",
+                name: "name",
             },
             {
                 type: "input",
                 message: "What is the manager's employee ID?",
-                name: "managerID",
+                name: "id",
             },
             {
                 type: "input",
                 message: "What is the manager's email?",
-                name: "managerEmail",
+                name: "email",
             },
             {
                 type: "input",
-                message: "What is the manager's office phone number?",
-                name: "managerPhone",
+                message: "What is the manager's office number?",
+                name: "officeNumber",
             },
         ])
         .then((managerData) => {
             // tell the computer what to do with manager data --> use a mangaer class to make new manager object that is equal to mangagerInfo varibale 
-            const managerInfo = new ManagerClass(managerData)
-            team.push(managerInfo)
+            const {name, id, email, officeNumber} = managerData
+            const manager = new Manager(name, id, email, officeNumber)
+            team.push(manager)
             nextOption()
         })
        
@@ -74,31 +74,32 @@ const promptEngineerInfo = () => {
             {
                 type: "input",
                 message: "What is the engineer's name?",
-                name: "engineerName",
+                name: "name",
             },
             {
                 type: "input",
                 message: "What is the engineer's employee ID?",
-                name: "engineerID"
+                name: "id"
             },
             {
                 type: "input",
                 message: "What is the engineer's email?",
-                name: "engineerEmail"
+                name: "email"
             },
             {
                 type: "input",
                 message: "What is the engineer's GitHub Username?",
-                name: "engineerGitHub"
+                name: "Github"
             }
         ])
         .then((engineerData) => {
-            console.log(engineerData);
+            // console.log(engineerData);
             // tell the computer what to do with engineer data --> use a enginner class to make new enginner object and pushto 
-            engineerInfo = new EngineerClass(engineerData)
-            team.push(engineerInfo)
-            console.log(engineerInfo.engineerName)
-            console.log(team)
+            const {name, id, email, Github} = engineerData
+            const engineer = new Engineer(name, id, email, Github)
+            team.push(engineer)
+            // console.log(engineerInfo.name)
+            // console.log(team)
             nextOption()
         })
 };
@@ -108,31 +109,32 @@ const promptInternInfo = () => {
             {
                 type: "input",
                 message: "What is the Intern's name?",
-                name: "internName",
+                name: "name",
             },
             {
                 type: "input",
                 message: "What is the Intern's employee ID?",
-                name: "internID"
+                name: "id"
             },
             {
                 type: "input",
                 message: "What is the Intern's email?",
-                name: "internEmail"
+                name: "email"
             },
             {
                 type: "input",
                 message: "What school does the Intern attend?",
-                name: "internSchool"
+                name: "school"
             },
         ])
         .then((internData) => {
-            console.log(internData);
+            // console.log(internData);
             // tell the computer what to do with engineer data --> use a enginner class to make new enginner object and pushto 
-            internInfo = new InternClass(internData)
-            team.push(internInfo)
+            const {name, id, email, school} = internData
+            const intern = new Intern(name, id, email, school)
+            team.push(intern)
             // console.log(internInfo.internName)
-            console.log(team)
+            // console.log(team)
             nextOption()
         })
 };
